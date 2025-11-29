@@ -5,8 +5,10 @@
 ## What is this?
 
 Demonstrates a working MCP (Model Context Protocol) server for PHP development with:
-- **2 Tools**: `clock` (time/timezone), `php_config` (PHP inspection)
-- **1 Prompt**: `symfony_command` (generate Symfony commands)
+- **3 Tools**: `clock`, `php_config`, `test_tool`
+- **1 Prompt**: `symfony_command`
+- **2 Static Resources**: `test://info/about`, `test://info/help`
+- **2 Resource Templates**: `php://docs/{topic}`, `symfony://docs/{topic}`
 
 ## Quick Start
 
@@ -26,10 +28,32 @@ claude mcp add debug-mcp-symfony $(pwd)/vendor/bin/debug-mcp --scope local
 claude mcp list  # Verify: debug-mcp-symfony - ✓ Connected
 ```
 
-Now use tools via natural language:
-- "What time is it in Tokyo?"
-- "What PHP extensions are loaded?"
-- "Generate a Symfony command to import users"
+## Testing Questions
+
+### Tools
+Ask Claude Code to test tools:
+- **"What time is it in Tokyo?"** → `clock` tool with timezone
+- **"What PHP extensions are loaded?"** → `php_config` tool
+- **"Show me the PHP configuration"** → `php_config` tool
+
+### Resources
+Ask Claude Code to test resources:
+- **"Show me the test information"** → Static resource
+- **"Show me PHP best practices"** → Resource template: `php://docs/best-practices`
+- **"Show me Symfony console documentation"** → Resource template: `symfony://docs/console-commands`
+
+### Prompts
+Ask Claude Code to test prompts:
+- **"Generate a Symfony command to import users from CSV"** → `symfony_command` prompt
+- **"Create a command called app:process-orders"** → `symfony_command` prompt
+
+## Use Cases
+
+- Get timestamps for logging/debugging
+- Check PHP configuration without leaving editor
+- Access PHP and Symfony documentation while coding
+- Generate Symfony console commands with best practices
+- Prototype custom MCP tools in `mcp/` directory
 
 ### Claude Desktop
 
