@@ -8,28 +8,28 @@
             "type": "path",
             "url": "../debug-mcp",
             "options": {
-                "symlink": false
+                "symlink": true
             }
         },
         {
             "type": "path",
             "url": "../debug-mcp-tools",
             "options": {
-                "symlink": false
+                "symlink": true
             }
         },
         {
             "type": "path",
             "url": "../debug-mcp-resources",
             "options": {
-                "symlink": false
+                "symlink": true
             }
         },
         {
             "type": "path",
             "url": "../debug-mcp-prompts",
             "options": {
-                "symlink": false
+                "symlink": true
             }
         }
     ],
@@ -39,12 +39,14 @@
         "ext-iconv": "*",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.10",
         "symfony/framework-bundle": "8.0.*",
         "symfony/runtime": "8.0.*",
-        "symfony/yaml": "8.0.*"
-    },
-    "require-dev": {
+        "symfony/yaml": "8.0.*",
+        "wachterjohannes/debug-mcp": "@dev",
+        "wachterjohannes/debug-mcp-prompts": "@dev",
+        "wachterjohannes/debug-mcp-resources": "@dev",
+        "wachterjohannes/debug-mcp-tools": "@dev"
     },
     "config": {
         "allow-plugins": {
