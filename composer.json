@@ -1,8 +1,38 @@
 {
     "type": "project",
     "license": "proprietary",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../debug-mcp",
+            "options": {
+                "symlink": false
+            }
+        },
+        {
+            "type": "path",
+            "url": "../debug-mcp-tools",
+            "options": {
+                "symlink": false
+            }
+        },
+        {
+            "type": "path",
+            "url": "../debug-mcp-resources",
+            "options": {
+                "symlink": false
+            }
+        },
+        {
+            "type": "path",
+            "url": "../debug-mcp-prompts",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
     "require": {
         "php": ">=8.4",
         "ext-ctype": "*",
