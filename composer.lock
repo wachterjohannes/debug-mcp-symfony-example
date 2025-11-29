@@ -3399,9 +3399,10 @@
             "dist": {
                 "type": "path",
                 "url": "../debug-mcp",
-                "reference": "99a06444c8342f565af3679e08a078a553f48381"
+                "reference": "bcafd5886498846c8f51abe0a8109ce107eb78e0"
             },
             "require": {
+                "mcp/sdk": "^0.1.0",
                 "php": "^8.1"
             },
             "require-dev": {
