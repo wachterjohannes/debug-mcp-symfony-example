@@ -1,14 +1,14 @@
-# debug-mcp-symfony-example
+# symfony/ai-mate Example Project
 
-**⚠️ PROTOTYPE - Example Symfony 8.0 project with MCP server integration**
+**Example Symfony 8.0 project demonstrating MCP server integration for PHP development**
 
 ## What is this?
 
-Demonstrates a working MCP (Model Context Protocol) server for PHP development with:
-- **3 Tools**: `clock`, `php_config`, `test_tool`
-- **1 Prompt**: `symfony_command`
+Demonstrates the **symfony/ai-mate** MCP server integration with:
+- **5 Tools**: `php-version`, `operating-system`, `operating-system-family`, `php-extensions`, `test_tool`
 - **2 Static Resources**: `test://info/about`, `test://info/help`
-- **2 Resource Templates**: `php://docs/{topic}`, `symfony://docs/{topic}`
+- **Auto-discovery**: Custom tools and resources from `mate/` directory
+- **Configuration**: Service container integration via `.mate/services.php`
 
 ## Quick Start
 
@@ -18,42 +18,15 @@ cd debug-mcp-symfony-example
 composer install
 ```
 
-## Usage
+## Setup
 
 ### Claude Code (Recommended)
 
 ```bash
 cd /path/to/debug-mcp-symfony-example
-claude mcp add debug-mcp-symfony $(pwd)/vendor/bin/debug-mcp --scope local
-claude mcp list  # Verify: debug-mcp-symfony - ✓ Connected
+claude mcp add mate $(pwd)/vendor/bin/mate --scope local
+claude mcp list  # Verify: mate - ✓ Connected
 ```
-
-## Testing Questions
-
-### Tools
-Ask Claude Code to test tools:
-- **"What time is it in Tokyo?"** → `clock` tool with timezone
-- **"What PHP extensions are loaded?"** → `php_config` tool
-- **"Show me the PHP configuration"** → `php_config` tool
-
-### Resources
-Ask Claude Code to test resources:
-- **"Show me the test information"** → Static resource
-- **"Show me PHP best practices"** → Resource template: `php://docs/best-practices`
-- **"Show me Symfony console documentation"** → Resource template: `symfony://docs/console-commands`
-
-### Prompts
-Ask Claude Code to test prompts:
-- **"Generate a Symfony command to import users from CSV"** → `symfony_command` prompt
-- **"Create a command called app:process-orders"** → `symfony_command` prompt
-
-## Use Cases
-
-- Get timestamps for logging/debugging
-- Check PHP configuration without leaving editor
-- Access PHP and Symfony documentation while coding
-- Generate Symfony console commands with best practices
-- Prototype custom MCP tools in `mcp/` directory
 
 ### Claude Desktop
 
@@ -62,8 +35,8 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "debug-mcp-symfony": {
-      "command": "/absolute/path/to/debug-mcp-symfony-example/vendor/bin/debug-mcp"
+    "mate": {
+      "command": "/absolute/path/to/debug-mcp-symfony-example/vendor/bin/mate"
     }
   }
 }
@@ -71,33 +44,81 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 Restart Claude Desktop.
 
+## Testing the MCP Server
+
+### Tools
+Test the available MCP tools:
+- **"What PHP version is running?"** → `php-version` tool
+- **"What operating system are we on?"** → `operating-system` tool
+- **"What PHP extensions are loaded?"** → `php-extensions` tool
+- **"Run the test tool"** → `test_tool` tool
+
+### Resources
+Test the available resources:
+- **"Show me the test information"** → `test://info/about` resource
+- **"Show me help for the MCP server"** → `test://info/help` resource
+
+## Use Cases
+
+- Check PHP version and environment info during development
+- List loaded PHP extensions without leaving your editor
+- Verify system configuration for debugging
+- Extend with custom tools in the `mate/` directory
+- Configure services via `.mate/services.php` for DI container integration
+
 ## Add Your Own Tools
 
-Create `mcp/MyTool.php`:
+Create `mate/MyTool.php`:
 
 ```php
 <?php
-namespace App\Mcp;
+namespace App\Mate;
 
-use Mcp\Capability\Attribute\McpTool;
+use Symfony\Component\AiMate\Attribute\Tool;
 
 class MyTool {
-    #[McpTool(name: 'my_tool', description: 'Does something')]
+    #[Tool(name: 'my_tool', description: 'Does something useful')]
     public function execute(string $input): array {
-        return ['result' => $input];
+        return ['result' => "Processed: $input"];
     }
 }
 ```
 
-Auto-discovered on next request.
+Tools in `mate/` are auto-discovered on the next request.
 
-## Ecosystem
+## Configuration
 
-Part of debug-mcp prototype:
-- [debug-mcp](https://github.com/wachterjohannes/debug-mcp) - Core server
-- [debug-mcp-tools](https://github.com/wachterjohannes/debug-mcp-tools) - Tools
-- [debug-mcp-prompts](https://github.com/wachterjohannes/debug-mcp-prompts) - Prompts
-- [debug-mcp-resources](https://github.com/wachterjohannes/debug-mcp-resources) - Resources
+### Service Configuration
+
+Edit `.mate/services.php` to configure the MCP server and add custom services:
+
+```php
+<?php
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $container): void {
+    $container->parameters()
+        ->set('mate.cache_dir', sys_get_temp_dir().'/mate')
+        ->set('mate.env_file', ['.env'])
+    ;
+
+    $container->services()
+        // Add your custom services here
+    ;
+};
+```
+
+### Extension Management
+
+Extensions are managed in `.mate/extensions.php` (auto-generated by `mate discover`):
+
+```php
+return [
+    'symfony/ai-mate' => ['enabled' => true],
+];
+```
+
+Run `mate discover` to scan for and register new extensions.
 
 ## Requirements
 

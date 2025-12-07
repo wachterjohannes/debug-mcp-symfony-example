@@ -17,20 +17,6 @@
             "options": {
                 "symlink": true
             }
-        },
-        {
-            "type": "path",
-            "url": "../debug-mcp-resources",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../debug-mcp-prompts",
-            "options": {
-                "symlink": true
-            }
         }
     ],
     "require": {
@@ -43,9 +29,7 @@
         "symfony/framework-bundle": "8.0.*",
         "symfony/runtime": "8.0.*",
         "symfony/yaml": "8.0.*",
-        "wachterjohannes/debug-mcp": "@dev",
-        "wachterjohannes/debug-mcp-prompts": "@dev",
-        "wachterjohannes/debug-mcp-resources": "@dev",
+        "symfony/ai-mate": "@dev",
         "wachterjohannes/debug-mcp-tools": "@dev"
     },
     "config": {
@@ -59,7 +43,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "App\\Mate\\": "mate/"
         }
     },
     "autoload-dev": {
@@ -98,6 +83,14 @@
         "symfony": {
             "allow-contrib": false,
             "require": "8.0.*"
+        },
+        "ai-mate": {
+            "scan-dirs": [
+                "mate"
+            ],
+            "includes": [
+                "services.php"
+            ]
         }
     }
 }

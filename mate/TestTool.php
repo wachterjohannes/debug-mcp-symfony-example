@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp;
+namespace App\Mate;
 
 use Mcp\Capability\Attribute\McpTool;
 
