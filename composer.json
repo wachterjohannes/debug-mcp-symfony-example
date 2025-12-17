@@ -6,14 +6,21 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../debug-mcp",
+            "url": "../../ai/symfony-ai/src/mate",
             "options": {
                 "symlink": true
             }
         },
         {
             "type": "path",
-            "url": "../debug-mcp-tools",
+            "url": "../../ai/symfony-ai/src/mate/src/Bridge/Monolog",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../../ai/symfony-ai/src/mate/src/Bridge/Symfony",
             "options": {
                 "symlink": true
             }
@@ -23,14 +30,16 @@
         "php": ">=8.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "symfony/ai-mate": "@dev",
+        "symfony/ai-monolog-mate": "@dev",
+        "symfony/ai-symfony-mate": "@dev",
         "symfony/console": "8.0.*",
         "symfony/dotenv": "8.0.*",
         "symfony/flex": "^2.10",
         "symfony/framework-bundle": "8.0.*",
+        "symfony/monolog-bundle": "^4.0.1",
         "symfony/runtime": "8.0.*",
-        "symfony/yaml": "8.0.*",
-        "symfony/ai-mate": "@dev",
-        "wachterjohannes/debug-mcp-tools": "@dev"
+        "symfony/yaml": "8.0.*"
     },
     "config": {
         "allow-plugins": {

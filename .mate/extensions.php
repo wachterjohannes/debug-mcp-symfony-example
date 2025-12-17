@@ -5,5 +5,6 @@
 
 return [
     'symfony/ai-mate' => ['enabled' => true],
-    'wachterjohannes/debug-mcp-tools' => ['enabled' => true],
+    'symfony/ai-monolog-mate' => ['enabled' => true],
+    'symfony/ai-symfony-mate' => ['enabled' => true],
 ];
